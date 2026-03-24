@@ -1,0 +1,46 @@
+# Created by https://www.toptal.com/developers/gitignore/api/react,linux
+# Edit at https://www.toptal.com/developers/gitignore?templates=react,linux
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+node_modules
+bower_components
+
+*.sublime*
+
+psd
+thumb
+sketch
+
+blogs/
+
+.topology.json
+
+.agents/*
+.claude/*
+ROADMAP.md
+roadmap/*
+
+unreleased/*
+
+# End of https://www.toptal.com/developers/gitignore/api/react,linux

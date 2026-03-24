@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { extractTitle, BlogPost } from "../data/posts";
-import { ChevronRight, Pin } from "lucide-react";
+import { ChevronRight, Pin, X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface SidebarProps {
   allPosts: BlogPost[];
@@ -16,6 +17,7 @@ interface SidebarProps {
   onCategoryChange?: (category: 'project' | 'blog') => void;
   postLanguages?: Record<string, string>;
   getPostTitle?: (post: BlogPost) => string;
+  showThemeToggle?: boolean;
 }
 
 export function Sidebar({
@@ -31,7 +33,8 @@ export function Sidebar({
   categoryFilter = 'blog',
   onCategoryChange,
   postLanguages,
-  getPostTitle
+  getPostTitle,
+  showThemeToggle
 }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -119,14 +122,29 @@ export function Sidebar({
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 
+          fixed top-0 left-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800
           transition-all duration-300 z-40 overflow-hidden
-          ${isOpen ? "translate-x-0 w-full" : "-translate-x-full lg:translate-x-0"}
+          ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          ${isOpen ? "w-full sm:w-80" : ""}
           ${getSidebarWidth()}
           ${sidebarState === 'closed' ? "lg:border-r-0" : ""}
         `}
       >
-        <div className={`h-full flex flex-col p-6 overflow-y-auto w-80 transition-opacity duration-300 ${sidebarState === 'closed' ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'} scrollbar-hide`}>
+        <div className={`h-full flex flex-col p-6 overflow-y-auto w-full sm:w-80 transition-opacity duration-300 ${sidebarState === 'closed' ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'} scrollbar-hide`}>
+          {/* Mobile Header with Close Button and Theme Toggle */}
+          <div className="lg:hidden flex items-center justify-between mb-6 pt-2">
+            <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">Menu</span>
+            <div className="flex items-center gap-2">
+              {showThemeToggle && <ThemeToggle />}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                aria-label="Close menu"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
           {/* Category Toggle */}
           {onCategoryChange && (
             <div className="mb-6 pt-12">

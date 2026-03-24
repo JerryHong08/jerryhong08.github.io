@@ -373,6 +373,7 @@ export function MainPage() {
         onCategoryChange={setCategoryFilter}
         postLanguages={postLanguages}
         getPostTitle={getPostTitle}
+        showThemeToggle={true}
       />
 
       <div className={`transition-all duration-300 ${getSidebarMargin()}`}>

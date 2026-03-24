@@ -63,7 +63,7 @@ categories: [general]
 category: blog | project
 isPinned: true
 ---
-```
+``` 
 
 **Post Sources:**
 1. Supabase backend (primary) - Edge function at `make-server-99da9f88/posts`

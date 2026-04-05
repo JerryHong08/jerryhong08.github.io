@@ -11,13 +11,23 @@ description: 分类
 
 - 硬件
 
-  - [diy midi controller](../midi-controller/midi-controller.md)
+  - [自制midi控制器记录](../midi-controller/midi-controller.md)
 
 ---
 
 - 软件 - 即将发布
 
-  - [trade fast and slow](../trade-fast-and-slow/trade-fast-and-slow.md)
+  - [交易，快与慢](../trade-fast-and-slow/trade-fast-and-slow.md)
+
+---
+
+- 杂文 - 即将发布
+
+  - [维纳](../cybernectis/who-is-norbert-wiener.md)
+
+  - [安兰德](../ayn-rand/who-is-ayn-rand.md)
+
+  - [一切都被慈爱的机器注视着](../machine-of-loving-grace/machine-of-loving-grace.md)
 
 ---
 
@@ -26,15 +36,5 @@ description: 分类
 ---
 
 - 艺术
-
----
-
-- 杂文 - 即将发布
-
-  - [who is Norbert Wiener?](../cybernectis/who-is-norbert-wiener.md)
-
-  - [who is Ayn Rand?](../ayn-rand/who-is-ayn-rand.md)
-
-  - [machine of loving grace](../machine-of-loving-grace/machine-of-loving-grace.md)
 
 ---

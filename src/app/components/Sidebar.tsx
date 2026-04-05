@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { extractTitle, BlogPost } from "../data/posts";
-import { ChevronRight, Pin, X, Globe, Sun, Moon, Disc3 } from "lucide-react";
+import { ChevronRight, Pin, X, Globe, Sun, Moon, Disc3, Github } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
 interface LanguageSwitcherIconProps {
@@ -162,8 +162,18 @@ export function Sidebar({
         `}
       >
         <div className={`h-full flex flex-col p-6 overflow-y-auto w-full sm:w-80 transition-opacity duration-300 ${sidebarState === 'closed' ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'} scrollbar-hide`}>
-          {/* Desktop Top Options: Theme & Language */}
+          {/* Desktop Top Options: GitHub, Theme & Language */}
           <div className="hidden lg:flex items-center justify-end gap-2 mb-4">
+            <a
+              href="https://github.com/JerryHong08"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-full bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
+              aria-label="GitHub"
+              title="GitHub"
+            >
+              <Github className="w-4 h-4" />
+            </a>
             {availableLanguages.length > 1 && onLanguageChange && (
               <LanguageSwitcherIcon
                 languages={availableLanguages}

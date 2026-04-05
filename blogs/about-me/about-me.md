@@ -3,7 +3,7 @@ author: JerryHong
 date: 2026-04-05
 category: blog
 isPinned: true
-description: 我
+description: 关于我
 ---
 
 # 关于我

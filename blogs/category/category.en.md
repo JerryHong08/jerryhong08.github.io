@@ -10,13 +10,23 @@ description: category list
 
 - hardware
 
-  - [DIY midi controller](../midi-controller/midi-controller.md)
+  - [diy midi controller](../midi-controller/midi-controller.md)
 
 ---
 
 - software - to be released
 
-  - [trade-fast-and-slow](../trade-fast-and-slow/trade-fast-and-slow.md)
+  - [trade fast and slow](../trade-fast-and-slow/trade-fast-and-slow.md)
+
+---
+
+- blogs - to be released
+
+  - [who is Norbert Wiener?](../cybernectis/who-is-norbert-wiener.md)
+
+  - [who is Ayn Rand?](../ayn-rand/who-is-ayn-rand.md)
+
+  - [machine of loving grace](../machine-of-loving-grace/machine-of-loving-grace.md)
 
 ---
 
@@ -27,14 +37,3 @@ description: category list
 - art
 
 ---
-
-- Blogs - to be released
-
-  - [Who is Norbert Wiener?](../cybernectis/who-is-norbert-wiener.md)
-
-  - [Who is Ayn Rand?](../ayn-rand/who-is-ayn-rand.md)
-
-  - [machine-of-loving-grace](../machine-of-loving-grace/machine-of-loving-grace.md)
-
----
-

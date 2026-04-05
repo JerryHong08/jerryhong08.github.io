@@ -1,6 +1,6 @@
 ---
 author: JerryHong
-date: 2026-02-01
+date: 2026-03-24
 category: project
 description: 一个DIY MIDI控制器的回顾记录，包括项目反思、设计拆解、DIY教程。
 ---

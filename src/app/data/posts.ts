@@ -10,6 +10,7 @@ export interface BlogPost {
   category?: 'project' | 'blog';
   languages?: string[]; // Available languages for this post (e.g., ['en', 'zh'])
   defaultLanguage?: string; // Default language code (e.g., 'en')
+  hidden?: boolean; // If true, post is not shown in the sidebar (default: false)
 }
 
 // Helper function to parse frontmatter from markdown
@@ -93,22 +94,29 @@ export function getContentWithoutTitle(content: string): string {
 // Helper function to process a post and extract metadata from frontmatter
 export function processPost(post: BlogPost): BlogPost {
   const { frontmatter } = parseFrontmatter(post.content);
-  
+
   // Extract isPinned (default: false)
-  const isPinned = post.isPinned ?? 
-    (frontmatter.isPinned === true || 
-     frontmatter.isPinned === 'true' || 
+  const isPinned = post.isPinned ??
+    (frontmatter.isPinned === true ||
+     frontmatter.isPinned === 'true' ||
      frontmatter.isPinned === 'True');
-  
+
   // Extract category (default: 'blog')
-  const category: 'project' | 'blog' = 
-    (frontmatter.category === 'project' || frontmatter.category === 'blog') 
-      ? frontmatter.category 
+  const category: 'project' | 'blog' =
+    (frontmatter.category === 'project' || frontmatter.category === 'blog')
+      ? frontmatter.category
       : 'blog';
-  
+
+  // Extract hidden (default: false)
+  const hidden = post.hidden ??
+    (frontmatter.hidden === true ||
+     frontmatter.hidden === 'true' ||
+     frontmatter.hidden === 'True');
+
   return {
     ...post,
     isPinned,
-    category
+    category,
+    hidden
   };
 }

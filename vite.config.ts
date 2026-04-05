@@ -28,4 +28,10 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
   },
+
+  // Development server: handle all routes by serving index.html
+  // This enables client-side routing for URLs like /midi-controller/midi-controller.md
+  server: {
+    historyApiFallback: true,
+  },
 })

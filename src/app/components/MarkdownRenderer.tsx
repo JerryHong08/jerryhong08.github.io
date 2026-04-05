@@ -6,6 +6,7 @@ import { useMemo } from "react";
 interface MarkdownRendererProps {
   content: string;
   postId: string;
+  onLinkClick?: (href: string) => boolean; // returns true if handled
 }
 
 // Strip HTML comments from content
@@ -43,7 +44,7 @@ function transformImagePaths(content: string, postId: string): string {
   return processed;
 }
 
-export function MarkdownRenderer({ content, postId }: MarkdownRendererProps) {
+export function MarkdownRenderer({ content, postId, onLinkClick }: MarkdownRendererProps) {
   // Process content: strip comments and transform image paths
   const processedContent = useMemo(() => {
     let processed = stripComments(content);
@@ -156,16 +157,31 @@ export function MarkdownRenderer({ content, postId }: MarkdownRendererProps) {
     hr: () => (
       <hr className="my-8 border-gray-300 dark:border-gray-700" />
     ),
-    a: ({ href, children }: { href?: string; children: React.ReactNode }) => (
-      <a
-        href={href}
-        className="text-gray-900 dark:text-gray-100 underline hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {children}
-      </a>
-    ),
+    a: ({ href, children }: { href?: string; children: React.ReactNode }) => {
+      const handleClick = (e: React.MouseEvent) => {
+        if (href && onLinkClick) {
+          const handled = onLinkClick(href);
+          if (handled) {
+            e.preventDefault();
+          }
+        }
+      };
+
+      // Check if it's an internal link (ends with .md or is a relative path)
+      const isInternalLink = href && (href.endsWith('.md') || (!href.startsWith('http') && !href.startsWith('#')));
+
+      return (
+        <a
+          href={href}
+          onClick={handleClick}
+          className="text-gray-900 dark:text-gray-100 underline hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
+          target={isInternalLink ? undefined : "_blank"}
+          rel={isInternalLink ? undefined : "noopener noreferrer"}
+        >
+          {children}
+        </a>
+      );
+    },
     img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
       // If width is specified, treat as inline-block (for side-by-side images)
       // Otherwise use block display with margins (for standalone images)

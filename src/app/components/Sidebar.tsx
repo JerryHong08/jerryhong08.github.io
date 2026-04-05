@@ -1,7 +1,32 @@
 import { useState } from "react";
 import { extractTitle, BlogPost } from "../data/posts";
-import { ChevronRight, Pin, X } from "lucide-react";
+import { ChevronRight, Pin, X, Globe, Sun, Moon } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+
+interface LanguageSwitcherIconProps {
+  languages: string[];
+  currentLanguage: string;
+  onLanguageChange: (lang: string) => void;
+}
+
+function LanguageSwitcherIcon({ languages, currentLanguage, onLanguageChange }: LanguageSwitcherIconProps) {
+  if (languages.length <= 1) return null;
+
+  const otherLanguage = languages.find(lang => lang !== currentLanguage) || languages[0];
+
+  const getLanguageCode = (code: string) => code.toUpperCase();
+
+  return (
+    <button
+      onClick={() => onLanguageChange(otherLanguage)}
+      className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+      aria-label={`Switch to ${getLanguageCode(otherLanguage)}`}
+      title={`Switch to ${getLanguageCode(otherLanguage)}`}
+    >
+      <Globe className="w-4 h-4" />
+    </button>
+  );
+}
 
 interface SidebarProps {
   allPosts: BlogPost[];
@@ -15,9 +40,11 @@ interface SidebarProps {
   showMobileButton: boolean;
   categoryFilter?: 'project' | 'blog';
   onCategoryChange?: (category: 'project' | 'blog') => void;
-  postLanguages?: Record<string, string>;
   getPostTitle?: (post: BlogPost) => string;
   showThemeToggle?: boolean;
+  globalLanguage?: string;
+  availableLanguages?: string[];
+  onLanguageChange?: (lang: string) => void;
 }
 
 export function Sidebar({
@@ -32,9 +59,11 @@ export function Sidebar({
   showMobileButton,
   categoryFilter = 'blog',
   onCategoryChange,
-  postLanguages,
   getPostTitle,
-  showThemeToggle
+  showThemeToggle,
+  globalLanguage = 'zh',
+  availableLanguages = [],
+  onLanguageChange
 }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,11 +76,12 @@ export function Sidebar({
     }, 100);
   };
 
-  // Filter posts by category
-  // 'blog' shows all posts (acts as 'all')
+  // Filter posts by category and hidden status
+  // 'blog' shows all non-hidden posts (acts as 'all')
   // 'project' shows only project posts
-  // Pinned posts always show regardless of filter
+  // Pinned posts always show regardless of filter (unless hidden)
   const filteredPosts = allPosts.filter(post => {
+    if (post.hidden) return false; // Never show hidden posts
     if (post.isPinned) return true;
     if (categoryFilter === 'blog') return true; // Show all in blog view
     return post.category === 'project'; // Only show projects in project view
@@ -131,10 +161,29 @@ export function Sidebar({
         `}
       >
         <div className={`h-full flex flex-col p-6 overflow-y-auto w-full sm:w-80 transition-opacity duration-300 ${sidebarState === 'closed' ? 'lg:opacity-0 lg:pointer-events-none' : 'opacity-100'} scrollbar-hide`}>
-          {/* Mobile Header with Close Button and Theme Toggle */}
+          {/* Desktop Top Options: Theme & Language */}
+          <div className="hidden lg:flex items-center justify-end gap-2 mb-4">
+            {availableLanguages.length > 1 && onLanguageChange && (
+              <LanguageSwitcherIcon
+                languages={availableLanguages}
+                currentLanguage={globalLanguage}
+                onLanguageChange={onLanguageChange}
+              />
+            )}
+            {showThemeToggle && <ThemeToggle />}
+          </div>
+
+          {/* Mobile Header with Close Button */}
           <div className="lg:hidden flex items-center justify-between mb-6 pt-2">
             <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">Menu</span>
             <div className="flex items-center gap-2">
+              {availableLanguages.length > 1 && onLanguageChange && (
+                <LanguageSwitcherIcon
+                  languages={availableLanguages}
+                  currentLanguage={globalLanguage}
+                  onLanguageChange={onLanguageChange}
+                />
+              )}
               {showThemeToggle && <ThemeToggle />}
               <button
                 onClick={() => setIsOpen(false)}
@@ -147,7 +196,7 @@ export function Sidebar({
           </div>
           {/* Category Toggle */}
           {onCategoryChange && (
-            <div className="mb-6 pt-12">
+            <div className="mb-6">
               <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
                 <button
                   onClick={() => onCategoryChange('blog')}
@@ -215,8 +264,10 @@ export function Sidebar({
           </nav>
 
           {/* Footer */}
-          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-500">
-            {filteredPosts.length} articles
+          <div className="mt-auto pt-4 flex flex-col items-center gap-2">
+            <div className="text-xs text-gray-500 dark:text-gray-500">
+              {filteredPosts.length} articles
+            </div>
           </div>
         </div>
       </aside>

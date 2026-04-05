@@ -440,11 +440,11 @@ export function MainPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       {/* Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-gray-200 dark:bg-gray-800 z-[70]">
+      <div className="fixed top-0 left-0 right-0 h-1 bg-border z-[70]">
         <div
-          className="h-full bg-gray-900 dark:bg-gray-100 transition-all duration-150 ease-out"
+          className="h-full bg-foreground transition-all duration-150 ease-out"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -473,8 +473,8 @@ export function MainPage() {
         {isLoading && (
           <section className="min-h-screen flex items-center justify-center px-6">
             <div className="text-center">
-              <div className="w-8 h-8 border-4 border-gray-200 dark:border-gray-800 border-t-gray-900 dark:border-t-gray-100 rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-gray-500 dark:text-gray-500">Loading posts...</p>
+              <div className="w-8 h-8 border-4 border-muted border-t-foreground rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-muted-foreground">Loading posts...</p>
             </div>
           </section>
         )}
@@ -490,22 +490,22 @@ export function MainPage() {
             <section
               key={`${selectedPost.id}-${currentLang}`}
               id={selectedPost.id}
-              className="min-h-screen px-6 py-20 border-t border-gray-200 dark:border-gray-800"
+              className="min-h-screen px-6 py-20 border-t border-border"
             >
               <article className="max-w-3xl mx-auto">
                 <header className="mb-12">
-                  <h2 className="text-4xl md:text-5xl mb-4 text-gray-900 dark:text-gray-100 tracking-tight">
+                  <h2 className="text-4xl md:text-5xl mb-4 text-foreground tracking-tight">
                     {extractTitle(currentContent)}
                   </h2>
-                  <div className="text-sm text-gray-500 dark:text-gray-500 mb-2">
+                  <div className="text-sm text-muted-foreground mb-2">
                     {selectedPost.date}
                   </div>
                   {(frontmatter.description || selectedPost.description) && (
-                    <p className="text-base text-gray-600 dark:text-gray-400 italic mb-4">
+                    <p className="text-base text-muted-foreground italic mb-4">
                       {frontmatter.description || selectedPost.description}
                     </p>
                   )}
-                  <div className="w-16 h-0.5 bg-gray-900 dark:bg-gray-100 mt-6"></div>
+                  <div className="w-16 h-0.5 bg-foreground mt-6"></div>
                 </header>
 
                 <div className="prose prose-gray dark:prose-invert prose-lg max-w-none">
@@ -520,10 +520,10 @@ export function MainPage() {
         {!isLoading && !selectedPost && (
           <section className="min-h-screen flex items-center justify-center px-6">
             <div className="text-center max-w-md">
-              <p className="text-xl text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-xl text-muted-foreground mb-4">
                 No articles selected
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 Open the sidebar to explore and select articles to read
               </p>
             </div>
@@ -531,13 +531,13 @@ export function MainPage() {
         )}
 
         {/* Footer */}
-        <footer className="px-6 py-12 border-t border-gray-200 dark:border-gray-800">
+        <footer className="px-6 py-12 border-t border-border">
           {(() => {
             const pinnedPosts = allPosts.filter(p => p.isPinned);
             if (pinnedPosts.length === 0) return null;
 
             return (
-              <div className="max-w-3xl mx-auto text-center text-sm text-gray-500 dark:text-gray-500">
+              <div className="max-w-3xl mx-auto text-center text-sm text-muted-foreground">
                 {pinnedPosts.map((post, index) => {
                   // Use global language if pinned post has that language, otherwise fallback to default
                   const pinnedDefaultLang = post.defaultLanguage || 'zh';

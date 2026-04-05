@@ -12,7 +12,7 @@ I don’t have much to share about myself at the moment.
 
 ---
 
-more stories in [categoy](../category/category.md)
+more stories in [category](../category/category.md)
 
 ---
 

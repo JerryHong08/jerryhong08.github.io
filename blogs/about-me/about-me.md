@@ -12,7 +12,7 @@ description: 我
 
 ---
 
-更多文章见 [目录](../category/category.md)
+更多文章见 [分类](../category/category.md)
 
 ---
 

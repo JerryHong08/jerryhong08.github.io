@@ -6,8 +6,7 @@ isPinned: true
 description: category list
 ---
 
-
-# category
+# Category
 
 - hardware
 

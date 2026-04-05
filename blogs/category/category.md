@@ -4,20 +4,20 @@ date: 2026-04-05
 category: blog
 isPinned: true
 hidden: false
-# description: 分类
+description: 分类
 ---
 
 # 分类
 
 - 硬件
 
-  - [DIY midi controller](../midi-controller/midi-controller.md)
+  - [diy midi controller](../midi-controller/midi-controller.md)
 
 ---
 
 - 软件 - 即将发布
 
-  - [trade-fast-and-slow](../trade-fast-and-slow/trade-fast-and-slow.md)
+  - [trade fast and slow](../trade-fast-and-slow/trade-fast-and-slow.md)
 
 ---
 
@@ -31,10 +31,10 @@ hidden: false
 
 - 杂文 - 即将发布
 
-  - [Who is Norbert Wiener?](../cybernectis/who-is-norbert-wiener.md)
+  - [who is Norbert Wiener?](../cybernectis/who-is-norbert-wiener.md)
 
-  - [Who is Ayn Rand?](../ayn-rand/who-is-ayn-rand.md)
+  - [who is Ayn Rand?](../ayn-rand/who-is-ayn-rand.md)
 
-  - [machine-of-loving-grace](../machine-of-loving-grace/machine-of-loving-grace.md)
+  - [machine of loving grace](../machine-of-loving-grace/machine-of-loving-grace.md)
 
 ---

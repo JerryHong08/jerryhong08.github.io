@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { extractTitle, BlogPost } from "../data/posts";
-import { ChevronRight, Pin, X, Globe, Sun, Moon } from "lucide-react";
+import { ChevronRight, Pin, X, Globe, Sun, Moon, Disc3 } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
 interface LanguageSwitcherIconProps {
@@ -19,7 +19,7 @@ function LanguageSwitcherIcon({ languages, currentLanguage, onLanguageChange }: 
   return (
     <button
       onClick={() => onLanguageChange(otherLanguage)}
-      className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+      className="p-2 rounded-full bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
       aria-label={`Switch to ${getLanguageCode(otherLanguage)}`}
       title={`Switch to ${getLanguageCode(otherLanguage)}`}
     >
@@ -66,6 +66,7 @@ export function Sidebar({
   onLanguageChange
 }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [showPlayer, setShowPlayer] = useState(false);
 
   const handlePostClick = (postId: string) => {
     console.log('Article clicked:', postId);
@@ -113,8 +114,8 @@ export function Sidebar({
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          lg:hidden fixed top-6 left-6 z-50 p-2 bg-white/80 dark:bg-gray-900/80 text-gray-900 dark:text-gray-100 
-          backdrop-blur-sm border border-gray-200 dark:border-gray-800 rounded-full shadow-lg transition-all duration-300
+          lg:hidden fixed top-6 left-6 z-50 p-2 bg-white/80 dark:bg-sidebar/80 text-gray-900 dark:text-sidebar-foreground 
+          backdrop-blur-sm border border-gray-200 dark:border-sidebar-border rounded-full shadow-lg transition-all duration-300
           ${showMobileButton && !isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"}
         `}
         aria-label="Toggle menu"
@@ -137,9 +138,9 @@ export function Sidebar({
             onToggleSidebar(sidebarState === 'closed' ? 'half' : 'closed');
           }}
           className={`
-            fixed top-6 z-[60] p-2 bg-white/80 dark:bg-gray-900/80 text-gray-900 dark:text-gray-100 
-            backdrop-blur-sm border border-gray-200 dark:border-gray-800 rounded-full shadow-lg
-            transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800
+            fixed top-6 z-[60] p-2 bg-white/80 dark:bg-sidebar/80 text-gray-900 dark:text-sidebar-foreground 
+            backdrop-blur-sm border border-gray-200 dark:border-sidebar-border rounded-full shadow-lg
+            transition-all duration-300 hover:bg-gray-100 dark:hover:bg-muted
             ${getButtonPosition()}
             ${showButton ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"}
           `}
@@ -152,7 +153,7 @@ export function Sidebar({
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800
+          fixed top-0 left-0 h-screen bg-white dark:bg-sidebar border-r border-gray-200 dark:border-sidebar-border
           transition-all duration-300 z-40 overflow-hidden
           ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
           ${isOpen ? "w-full sm:w-80" : ""}
@@ -175,7 +176,7 @@ export function Sidebar({
 
           {/* Mobile Header with Close Button */}
           <div className="lg:hidden flex items-center justify-between mb-6 pt-2">
-            <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">Menu</span>
+            <span className="text-lg font-semibold text-gray-900 dark:text-sidebar-foreground">Menu</span>
             <div className="flex items-center gap-2">
               {availableLanguages.length > 1 && onLanguageChange && (
                 <LanguageSwitcherIcon
@@ -187,24 +188,42 @@ export function Sidebar({
               {showThemeToggle && <ThemeToggle />}
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="p-2 bg-gray-100 dark:bg-muted text-gray-900 dark:text-sidebar-foreground rounded-full hover:bg-gray-200 dark:hover:bg-sidebar-accent transition-colors"
                 aria-label="Close menu"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
           </div>
+
+          {/* <div className="space-y-6"> */}
+            {/* Music Player */}
+            {/* {showPlayer && (
+              <iframe
+                className="mb-6 rounded-lg"
+                src="https://untitled.stream/embed/yFOzp7Z5FrEE"
+                width="100%"
+                scrolling="no"
+                // height="180"
+                // allowFullScreen
+                // allow="autoplay; picture-in-picture"
+                frameBorder="0"
+                // loading="lazy"
+              />
+            )} */}
+          {/* </div> */}
+
           {/* Category Toggle */}
           {onCategoryChange && (
             <div className="mb-6">
-              <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
+              <div className="flex gap-2 p-1 bg-gray-100 dark:bg-muted rounded-lg">
                 <button
                   onClick={() => onCategoryChange('blog')}
                   className={`
                     flex-1 px-3 py-1.5 text-sm rounded-md transition-colors font-medium
                     ${categoryFilter === 'blog'
-                      ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                      ? 'bg-white dark:bg-sidebar text-gray-900 dark:text-sidebar-foreground shadow-sm'
+                      : 'text-gray-600 dark:text-muted-foreground hover:text-gray-900 dark:hover:text-gray-100'
                     }
                   `}
                 >
@@ -215,8 +234,8 @@ export function Sidebar({
                   className={`
                     flex-1 px-3 py-1.5 text-sm rounded-md transition-colors font-medium
                     ${categoryFilter === 'project'
-                      ? 'bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                      ? 'bg-white dark:bg-sidebar text-gray-900 dark:text-sidebar-foreground shadow-sm'
+                      : 'text-gray-600 dark:text-muted-foreground hover:text-gray-900 dark:hover:text-gray-100'
                     }
                   `}
                 >
@@ -239,16 +258,16 @@ export function Sidebar({
                         w-full text-left px-3 py-2 text-sm transition-colors rounded-lg
                         ${
                           isActive
-                            ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                            : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                            ? "bg-gray-100 dark:bg-muted text-gray-900 dark:text-sidebar-foreground"
+                            : "text-gray-600 dark:text-muted-foreground hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-muted/50"
                         }
                       `}
                     >
                       <div className="flex items-baseline gap-3">
                         {post.isPinned ? (
-                          <Pin className="w-3 h-3 text-gray-400 dark:text-gray-600 min-w-[1.5rem]" />
+                          <Pin className="w-3 h-3 text-gray-400 dark:text-muted-foreground min-w-[1.5rem]" />
                         ) : (
-                          <span className="text-xs font-mono text-gray-400 dark:text-gray-600 min-w-[1.5rem]">
+                          <span className="text-xs font-mono text-gray-400 dark:text-muted-foreground min-w-[1.5rem]">
                             {String(index + 1).padStart(2, "0")}
                           </span>
                         )}
@@ -265,7 +284,7 @@ export function Sidebar({
 
           {/* Footer */}
           <div className="mt-auto pt-4 flex flex-col items-center gap-2">
-            <div className="text-xs text-gray-500 dark:text-gray-500">
+            <div className="text-xs text-gray-500 dark:text-muted-foreground">
               {filteredPosts.length} articles
             </div>
           </div>
